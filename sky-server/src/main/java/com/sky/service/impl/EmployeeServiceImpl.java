@@ -106,7 +106,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param id
      */
     public void startOrStop(Integer status, Long id) {
-        Employee employee = Employee.builder()
+        Employee employee = Employee.builder()  //使用 Lombok 的 @Builder 注解创建一个 Employee 对象，仅设置 status 和 id 属性，用于后续更新员工状态。
                 .status(status)
                 .id(id)
                 //.updateTime(LocalDateTime.now())
