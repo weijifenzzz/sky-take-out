@@ -19,7 +19,22 @@
 
    </select>
 
-<!--     主键返回-->
+    <select id="getByCategoryIdList" resultType="com.sky.vo.DishVO">
+        SELECT  c.id       AS categoryId,
+                c.name     AS categoryName,
+                d.id,
+                d.name,
+                d.description,
+                d.image,
+                d.price,
+                d.status,
+                d.update_time
+        FROM dish d
+                 JOIN category c ON d.category_id = c.id
+        WHERE c.id = #{categoryId}
+    </select>
+
+    <!--     主键返回-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into dish (name,category_id,price,image,description,status,create_time,update_time,create_user,update_user)
         values (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})
@@ -48,6 +63,9 @@
         where id = #{id}
 
     </update>
+
+
+
 
 
 

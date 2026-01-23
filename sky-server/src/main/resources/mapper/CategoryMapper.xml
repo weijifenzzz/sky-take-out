@@ -26,7 +26,22 @@
         </set>
         where id = #{id}
     </select>
-
+    <select id="list" resultType="com.sky.entity.Category">
+        SELECT *
+        FROM category
+        WHERE type IN
+        <choose>
+            <!-- 调用端把 type 设成 null 时就查 1、2 -->
+            <when test="type == null">
+                (1, 2)
+            </when>
+            <!-- 否则就按传过来的单个值查 -->
+            <otherwise>
+                (#{type})
+            </otherwise>
+        </choose>
+        ORDER BY sort
+    </select>
 
 
 </mapper>

@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 @RestController("userShopController")
 @RequestMapping("/user/shop")
 @Slf4j
 @Api(tags = "店铺相关接口")
-public class shopController {
+public class ShopController {
 
     public static final String SHOP_STATUS = "SHOP_STATUS";
 
