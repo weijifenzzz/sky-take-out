@@ -47,4 +47,27 @@
         where id = #{id}
     </update>
 
+    <select id="pageQuery" resultType="com.sky.vo.OrderVO">
+        select o.*
+        from orders o
+        <where>
+            <if test="number != null and number != ''">
+                and o.number like concat('%',#{number},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and o.phone like concat('%',#{phone},'%')
+            </if>
+            <if test="beginTime != null ">
+                and o.order_time >= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and o.order_time <![CDATA[ < ]]> DATE_ADD(#{endTime}, INTERVAL 1 DAY)
+            </if>
+            <if test="status != null">
+            and o.status = #{status}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

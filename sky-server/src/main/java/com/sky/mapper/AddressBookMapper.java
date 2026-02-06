@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 
+import com.sky.entity.Address;
 import com.sky.entity.AddressBook;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,4 +35,9 @@ public interface AddressBookMapper {
 
     @Select("update address_book set is_default=0 where user_id=#{userId}")
     void setDefaultByUserId(AddressBook addressBook);
+
+    @Select("select a.province_name,a.city_name,a.district_name,a.detail from address_book a where id = #{id}")
+    Address getAddressById(Long id);
+
+
 }
