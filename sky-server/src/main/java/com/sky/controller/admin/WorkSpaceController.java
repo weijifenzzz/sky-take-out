@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController("adminWorkSpaceController")
 @RequestMapping("/admin/workspace")
 @Api(tags = "工作台相关接口")
@@ -32,7 +34,10 @@ public class WorkSpaceController {
     @ApiOperation("查看今日运营数据")
     public Result<BusinessDataVO> getBusinessData(){
         log.info("查看今日运营数据");
-        return Result.success(workSpaceService.getBusinessData());
+        LocalDateTime begin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime end = LocalDateTime.now();
+
+        return Result.success(workSpaceService.getBusinessData(begin, end));
     }
 
     /**

@@ -38,9 +38,7 @@ public class WorkSpaceServiceImpl implements WorkSpaceService {
 
 
     @Override
-    public BusinessDataVO getBusinessData() {
-        LocalDateTime begin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
-        LocalDateTime end = LocalDateTime.now();
+    public BusinessDataVO getBusinessData(LocalDateTime begin, LocalDateTime end) {
 
         //获取当日营业额
         Double turnover = getOrderAmount(begin, end, Orders.COMPLETED);
