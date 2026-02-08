@@ -19,7 +19,7 @@ public interface OrderService {
     OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception;
 
     /**
-     * 支付成功，修改订单状态
+     * 支付成功修改订单状态
      * @param outTradeNo
      */
     void paySuccess(String outTradeNo);
