@@ -9,6 +9,7 @@ import com.sky.entity.SetmealDish;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -69,4 +70,8 @@ public interface SetmealMapper {
 
     @Delete("delete from setmeal where id = #{id}")
     void delete(Long id);
+
+
+    @Select("select count(id) from setmeal where status = #{status}")
+    Integer getCountByStatus(Integer status);
 }

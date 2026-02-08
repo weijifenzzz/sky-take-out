@@ -4,14 +4,17 @@ package com.sky.mapper;
 import com.github.pagehelper.Page;
 import com.sky.dto.OrdersCancelDTO;
 import com.sky.dto.OrdersPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Orders;
 import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -32,12 +35,17 @@ public interface OrderMapper {
     void update(Orders orders);
 
 
-    Page<OrderVO> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+    List<OrderVO> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
     @Select("select * from orders where id = #{id}")
     OrderVO seeDetails(Long id);
 
 
+    /**
+     * 根据状态统计订单数量
+     * @param toBeConfirmed
+     * @return
+     */
     @Select( "select count(id) from orders where status = #{status}")
     Integer countStatus(Integer toBeConfirmed);
 
@@ -49,4 +57,14 @@ public interface OrderMapper {
 
     @Select("select * from orders where id = #{id}")
     Orders getById(Long id);
+
+    /**
+     * 根据动态条件统计营业额
+     * @param map
+     * @return
+     */
+    Double sumByMap(Map map);
+
+    Integer countByDateAndStatus(Map map);
+
 }

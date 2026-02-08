@@ -51,7 +51,7 @@ public class OrderController {
     /**
      * 查看订单详情
      */
-    @GetMapping("orderDetails/{id}")
+    @GetMapping("orderDetail/{id}")
     @ApiOperation("查看订单详情")
     public Result<OrderVO> details(@PathVariable("id") Long id) {
         log.info("查看订单详情，订单id为：{}", id);

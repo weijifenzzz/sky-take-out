@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -189,7 +190,18 @@ public class OrderServiceImpl implements OrderService {
         //设置分页参数
         PageHelper.startPage(ordersPageQueryDTO.getPage(), ordersPageQueryDTO.getPageSize());
         //执行查询
-        Page<OrderVO> page = orderMapper.pageQuery(ordersPageQueryDTO);
+        //Page<OrderVO> page = orderMapper.pageQuery(ordersPageQueryDTO);
+        List<OrderVO> orderVOList = orderMapper.pageQuery(ordersPageQueryDTO);
+
+        for (OrderVO orderVO : orderVOList){
+            List<OrderDetail> orderDetailList = orderDetailMapper.listByOrderId(orderVO.getId());
+            orderVO.setOrderDetailList(orderDetailList);
+            //对于每一份订单，查询订单包含的菜品，以字符串形式展示
+            orderVO.setOrderDishes(orderDetailList.stream().map(x -> x.getName() + "*" + x.getNumber()).collect(Collectors.joining(",")));
+
+        }
+
+        Page<OrderVO> page = (Page<OrderVO>) orderVOList;
 
         return new PageResult(page.getTotal(), page.getResult());
     }
@@ -202,6 +214,8 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetail> orderDetailList = orderDetailMapper.listByOrderId(id);
 
         orderVO.setOrderDetailList(orderDetailList);
+
+
         return orderVO;
     }
 
